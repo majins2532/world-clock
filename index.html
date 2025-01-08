@@ -3,46 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Digital Clock</title>
+    <title>Digital Clock</title>
     <style>
         body {
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
             font-family: 'Arial', sans-serif;
+            background: transparent; /* ไม่มีพื้นหลัง */
         }
 
-        .clock {
+        .clock-container {
+            width: 100px;
+            text-align: center;
+            border: 1px solid transparent; /* ไม่มีเส้นขอบ */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .time {
-            font-size: 64px;
+            font-size: 28px;
             font-weight: bold;
-            letter-spacing: 2px;
+            margin: 0;
         }
 
         .date {
-            font-size: 20px;
-            margin-top: 10px;
-            opacity: 0.8;
+            font-size: 14px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="clock">
+    <div class="clock-container">
         <div class="time" id="time">00:00:00</div>
-        <div class="date" id="date">January 1, 2025</div>
+        <div class="date" id="date">1 Jan 2025</div>
     </div>
 
     <script>
@@ -58,13 +55,12 @@
             const minutes = String(dateObj.getMinutes()).padStart(2, "0");
             const seconds = String(dateObj.getSeconds()).padStart(2, "0");
 
-            const day = dateObj.toLocaleString("en-US", { weekday: "long" });
-            const month = dateObj.toLocaleString("en-US", { month: "long" });
+            const day = dateObj.toLocaleString("en-US", { weekday: "short" });
             const date = dateObj.getDate();
-            const year = dateObj.getFullYear();
+            const month = dateObj.toLocaleString("en-US", { month: "short" });
 
             document.getElementById("time").textContent = `${hours}:${minutes}:${seconds}`;
-            document.getElementById("date").textContent = `${day}, ${month} ${date}, ${year}`;
+            document.getElementById("date").textContent = `${day}, ${date} ${month}`;
         }
 
         setInterval(updateClock, 1000);
