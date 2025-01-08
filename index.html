@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .time {
+            font-size: 64px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .date {
+            font-size: 20px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="time" id="time">00:00:00</div>
+        <div class="date" id="date">January 1, 2025</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date().toLocaleString("en-US", {
+                timeZone: "Asia/Bangkok",
+                hour12: false,
+            });
+
+            const dateObj = new Date(now);
+
+            const hours = String(dateObj.getHours()).padStart(2, "0");
+            const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+            const seconds = String(dateObj.getSeconds()).padStart(2, "0");
+
+            const day = dateObj.toLocaleString("en-US", { weekday: "long" });
+            const month = dateObj.toLocaleString("en-US", { month: "long" });
+            const date = dateObj.getDate();
+            const year = dateObj.getFullYear();
+
+            document.getElementById("time").textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById("date").textContent = `${day}, ${month} ${date}, ${year}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
